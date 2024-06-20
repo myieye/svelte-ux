@@ -28,6 +28,7 @@
   import { page } from '$app/stores';
 
   import './app.css';
+  import { Menu, MenuItem, Toggle } from '$lib/index.js';
 
   export let data;
 
@@ -205,6 +206,19 @@
 <!-- Set theme before anything renders (even when SSR is in use) -->
 <ThemeInit />
 
+<Toggle let:on={open} let:toggle let:toggleOff>
+  <Button on:click={toggle}>
+    Click me
+    <Menu {open} on:close={toggleOff} disableTransition>
+      <MenuItem>Refresh</MenuItem>
+      <MenuItem>Settings</MenuItem>
+      <MenuItem>Help</MenuItem>
+      <MenuItem>Sign In</MenuItem>
+      <MenuItem disabled>Disabled</MenuItem>
+    </Menu>
+  </Button>
+</Toggle>
+
 <AppLayout>
   <svelte:fragment slot="nav">
     <NavMenu />
@@ -301,6 +315,8 @@
     <slot />
   </main>
 </AppLayout>
+
+<div class="bg-green-400 h-[3000px] PortalTarget"></div>
 
 <style lang="postcss">
   :global(body) {
